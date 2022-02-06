@@ -1,4 +1,4 @@
-import { deepMerge } from './deps.ts';
+import { deepMerge, green, printf } from './deps.ts';
 
 export async function updateJsonFile(path: string, update: Record<string, unknown>) {
     const json = JSON.parse(await Deno.readTextFile(path));
@@ -6,9 +6,7 @@ export async function updateJsonFile(path: string, update: Record<string, unknow
 }
 
 export async function run(command: string, cwd?: string) {
-    // todo allow change the stdout using env
-    // todo set std out err to "null"
-    const process = Deno.run({cmd: command.split(' '), cwd});
+    const process = Deno.run({cmd: command.split(' '), stderr: "null", stdout: "null", cwd});
     await process.status();
 }
 
@@ -18,4 +16,12 @@ export async function rm(path: string, pattern: RegExp) {
             await Deno.remove(`${path}/${name}`);
         }
     }
+}
+
+const DONE = green('✓');
+
+export async function log(message: string, promise: Promise<unknown>) {
+    printf(message);
+    await promise;
+    printf(`  ${DONE}\n`);
 }
