@@ -8,6 +8,7 @@
 /tmp
 /out-tsc
 /pg
+/rxjs
 
 # dependencies
 /node_modules
