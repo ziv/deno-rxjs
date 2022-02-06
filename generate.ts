@@ -1,4 +1,3 @@
-// #!/usr/bin/env -S deno run --allow-read --allow-run --allow-net --allow-write
 import { updateJsonFile, run, rm, log } from './utils.ts';
 import { green } from './deps.ts';
 
@@ -24,5 +23,3 @@ await log('install dependencies', run(INSTALL_CMD, PATH));
 await log('run denoify', run(DENOIFY_CMD, PATH));
 await log('remove tsconfig files', rm(DST_PATH, /\.json$/));
 await log('moving library', Deno.rename(DST_PATH, LIB_PATH));
-
-// todo merge readme
